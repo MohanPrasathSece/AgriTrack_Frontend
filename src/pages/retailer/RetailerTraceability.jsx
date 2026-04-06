@@ -188,7 +188,7 @@ export default function RetailerTraceability() {
                                                     <div>
                                                         <p className="text-[9px] font-black text-slate-400 uppercase tracking-widest mb-1 leading-none">Geographic Node</p>
                                                         <p className="text-sm font-bold text-slate-700 uppercase tracking-tight flex items-center gap-2">
-                                                            <MapPin className="w-3 h-3 text-emerald-500/50" /> {formatLocation(step.location)}
+                                                            <MapPin className="w-3 h-3 text-emerald-500/50" /> {typeof step.location === 'object' ? (step.location?.fullAddress || step.location?.village + ', ' + step.location?.district + ', ' + step.location?.state) : (step.location || 'Unknown Location')}
                                                         </p>
                                                     </div>
                                                 </div>

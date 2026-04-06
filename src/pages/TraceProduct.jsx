@@ -193,7 +193,7 @@ const TraceProduct = () => {
                       <div className="flex items-center gap-4 text-[9px] font-bold text-slate-400 uppercase tracking-widest pt-2">
                         <div className="flex items-center gap-1.5 hover:text-emerald-600 transition-colors">
                           <MapPin className="w-3 h-3" />
-                          {formatLocation(step.location)}
+                          {typeof step.location === 'object' ? (step.location?.fullAddress || step.location?.village + ', ' + step.location?.district + ', ' + step.location?.state) : (step.location || 'Unknown Location')}
                         </div>
                         <div className="flex items-center gap-1.5 opacity-50">
                           <ShieldCheck className="w-3 h-3" />

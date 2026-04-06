@@ -154,7 +154,7 @@ export default function ReportsTraceability() {
                                                         <div className="flex items-center gap-3 text-[10px] font-bold text-slate-400 uppercase tracking-widest">
                                                             <span className="flex items-center gap-1.5"><User className="w-3 h-3" /> {step.actor}</span>
                                                             <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                                            <span className="flex items-center gap-1.5"><MapPin className="w-3 h-3" /> {formatLocation(step.location)}</span>
+                                                            <span className="flex items-center gap-1.5"><MapPin className="w-3 h-3" /> {typeof step.location === 'object' ? (step.location?.fullAddress || step.location?.village + ', ' + step.location?.district + ', ' + step.location?.state) : (step.location || 'Unknown Location')}</span>
                                                         </div>
                                                     </div>
                                                     <div className="text-right">

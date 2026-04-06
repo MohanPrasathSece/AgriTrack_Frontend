@@ -174,7 +174,7 @@ export default function RetailerMarketplace() {
                                         <div>
                                             <h3 className="text-lg font-semibold text-slate-800 tracking-tight capitalize">{crop.name}</h3>
                                             <p className="text-xs text-slate-400 font-medium mt-1 flex items-center gap-1.5">
-                                                <MapPin className="h-3.5 w-3.5 text-emerald-500" /> {formatLocation(crop.farm_location)}
+                                                <MapPin className="h-3.5 w-3.5 text-emerald-500" /> {typeof crop.farm_location === 'object' ? (crop.farm_location?.fullAddress || crop.farm_location?.village + ', ' + crop.farm_location?.district + ', ' + crop.farm_location?.state) : (crop.farm_location || 'Farm Location')}
                                             </p>
                                         </div>
 
