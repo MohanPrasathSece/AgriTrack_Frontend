@@ -271,7 +271,7 @@ export default function AggregatorCollectionsImproved() {
             const cropName = selected.source_crop?.name || 'Unknown Crop';
             const locationString = typeof selected.farmer?.address === 'string'
                 ? selected.farmer?.address
-                : formatLocation(selected.farmer?.address);
+                : (selected.farmer?.address?.fullAddress || selected.farmer?.address?.village + ', ' + selected.farmer?.address?.district + ', ' + selected.farmer?.address?.state);
 
             const qualityStr = typeof selected.quality_assessment === 'object' 
                 ? (selected.quality_assessment.overallGrade || selected.quality_assessment.grade || 'N/A') 
@@ -435,7 +435,7 @@ export default function AggregatorCollectionsImproved() {
 
                                 <div className="flex items-center gap-3 text-xs text-slate-400 font-medium">
                                     <MapPin className="h-4 w-4 text-emerald-300" />
-                                    {formatLocation(crop.farmer?.address)}
+                                    {typeof crop.farmer?.address === 'object' ? (crop.farmer?.address?.fullAddress || crop.farmer?.address?.village + ', ' + crop.farmer?.address?.district + ', ' + crop.farmer?.address?.state) : (crop.farmer?.address || 'Farmer Location')}
                                 </div>
 
                                 <button
