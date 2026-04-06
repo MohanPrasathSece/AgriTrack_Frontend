@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
 import { Download, FileText, Star, TrendingUp, Loader2, Sparkles, ChevronRight } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { farmerApi } from "../../utils/api";
@@ -10,11 +10,6 @@ function getGradeColor(score) {
     return "text-orange-500";
 }
 
-function getBgColor(score) {
-    if (score >= 90) return "bg-emerald-500/10";
-    if (score >= 80) return "bg-amber-500/10";
-    return "bg-orange-500/10";
-}
 
 export default function Reports() {
     const { user } = useAuth();
@@ -22,32 +17,8 @@ export default function Reports() {
     const [data, setData] = useState({ reports: [], summary: {} });
     const [selectedReport, setSelectedReport] = useState(null);
     const [showDetails, setShowDetails] = useState(false);
+
     
-    // Ref to store AbortController
-    const abortController = useRef();
-
-    useEffect(() => {
-        if (user?.email) {
-            fetchReports();
-        }
-        
-        // Cleanup function to abort pending requests and reset state
-        return () => {
-            if (abortController.current) {
-                abortController.current.abort();
-            }
-            // Clean up modal state to prevent DOM issues
-            setShowDetails(false);
-            setSelectedReport(null);
-        };
-    }, [user?.email]);
-
-    const handleViewDetails = (report) => {
-        console.log('Viewing report details:', report);
-        setSelectedReport(report);
-        setShowDetails(true);
-    };
-
     const closeModal = () => {
         // Add defensive programming to prevent DOM errors
         try {
@@ -61,7 +32,13 @@ export default function Reports() {
         }
     };
 
-    const fetchReports = async () => {
+    useEffect(() => {
+        if (user?.email) {
+            fetchReports();
+        }
+    }, [user?.email, fetchReports]);
+
+    const fetchReports = useCallback(async () => {
         try {
             setLoading(true);
             const response = await farmerApi.getReports(user.email);
@@ -95,7 +72,7 @@ export default function Reports() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [user.email]);
 
     if (loading) {
         return (

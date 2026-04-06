@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Camera, MapPin, Phone, Mail, Wheat, ShieldCheck, Edit3, Save, X, Loader2, AlertCircle, Calendar, Award, Edit, ArrowLeft, User, Sparkles } from "lucide-react";
+import React, { useState, useEffect, useRef, useCallback } from "react";
+import { Camera, MapPin, Phone, Mail, Wheat, ShieldCheck, Edit3, Save, X, Loader2, Calendar, Award, Edit, ArrowLeft, User, Sparkles } from "lucide-react";
 import heroFarm from "../../assets/hero-farm.jpg";
 import { useAuth } from "../../contexts/AuthContext";
 import { farmerApi } from "../../utils/api";
@@ -21,23 +21,21 @@ export default function Profile() {
     });
     const [saving, setSaving] = useState(false);
 
-    // Ref to store AbortController
-    const abortController = useRef();
-
+    
     useEffect(() => {
+        const abortController = new AbortController();
+        
         if (user?.email) {
             fetchProfile();
         }
 
         // Cleanup function to abort pending requests
         return () => {
-            if (abortController.current) {
-                abortController.current.abort();
-            }
+            abortController.abort();
         };
-    }, [user?.email]);
+    }, [user?.email, fetchProfile]);
 
-    const fetchProfile = async () => {
+    const fetchProfile = useCallback(async () => {
         try {
             setLoading(true);
             const response = await farmerApi.getProfile(user.email);
@@ -57,7 +55,7 @@ export default function Profile() {
         } finally {
             setLoading(false);
         }
-    };
+    }, [user.email]);
 
     const handleSave = async (e) => {
         e.preventDefault();
