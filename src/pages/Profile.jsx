@@ -364,7 +364,7 @@ const Profile = () => {
                   </label>
                   <textarea
                     name="address.fullAddress"
-                    value={String(formData.address?.fullAddress || '')}
+                    value={typeof formData.address?.fullAddress === 'object' ? JSON.stringify(formData.address?.fullAddress) : String(formData.address?.fullAddress || '')}
                     onChange={handleChange}
                     disabled={!editing}
                     rows={3}
@@ -388,7 +388,7 @@ const Profile = () => {
                   </div>
                   <h3 className="text-2xl font-black text-white uppercase tracking-tight">Audit Session</h3>
                   <span className="text-[10px] text-emerald-500 font-bold uppercase tracking-[0.3em] leading-none mb-1">Regional Operation Node</span>
-                  <p className="text-xl font-bold text-slate-400 uppercase tracking-tight">{formatLocation(formData.address) || 'Regional Node'}</p>
+                  <p className="text-xl font-bold text-slate-400 uppercase tracking-tight">{typeof formData.address === 'object' ? (formData.address?.fullAddress || formData.address?.village + ', ' + formData.address?.district + ', ' + formData.address?.state) : (formData.address || 'Regional Node')}</p>
                   <p className="text-sm font-bold text-slate-500 uppercase leading-relaxed tracking-tight">
                     Synchronize your local node modifications with the decentralized identity ledger.
                   </p>
