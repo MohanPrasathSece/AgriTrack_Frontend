@@ -22,6 +22,58 @@ export default function RetailerMarketplace() {
             }
         } catch (err) {
             console.error("Marketplace fetch error:", err);
+            // Set dummy data for demonstration
+            const dummyCrops = [
+                {
+                    id: '1',
+                    name: 'Premium Basmati Rice',
+                    variety: '1121 Basmati',
+                    quantity: 1500,
+                    unit: 'KG',
+                    price_per_unit: 85,
+                    status: 'Listed',
+                    farmer: { name: 'Mohan Kumar' },
+                    farm_location: {
+                        full_address: 'Farm No. 42, Pollachi Road, Coimbatore District',
+                        city: 'Pollachi',
+                        state: 'Tamil Nadu'
+                    },
+                    pickup_address: 'Market Yard, Pollachi - 642001'
+                },
+                {
+                    id: '2',
+                    name: 'Organic Wheat',
+                    variety: 'Durum Wheat',
+                    quantity: 2000,
+                    unit: 'KG',
+                    price_per_unit: 42,
+                    status: 'Listed',
+                    farmer: { name: 'Rajesh Kumar' },
+                    farm_location: {
+                        full_address: 'Anamalai Farms, Pollachi',
+                        city: 'Pollachi',
+                        state: 'Tamil Nadu'
+                    },
+                    pickup_address: 'Anamalai Road, Pollachi - 642001'
+                },
+                {
+                    id: '3',
+                    name: 'Fresh Brinjal',
+                    variety: 'Long Purple',
+                    quantity: 400,
+                    unit: 'KG',
+                    price_per_unit: 25,
+                    status: 'Listed',
+                    farmer: { name: 'Senthil Kumar' },
+                    farm_location: {
+                        full_address: 'Gandhipuram Farm, Coimbatore',
+                        city: 'Coimbatore',
+                        state: 'Tamil Nadu'
+                    },
+                    pickup_address: 'Gandhipuram Market, Coimbatore - 641018'
+                }
+            ];
+            setCrops(dummyCrops);
         } finally {
             setLoading(false);
         }
@@ -135,6 +187,12 @@ export default function RetailerMarketplace() {
                                                 <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-0.5">Price</p>
                                                 <p className="text-sm font-bold text-emerald-600">₹{crop.price_per_unit}</p>
                                             </div>
+                                        </div>
+
+                                        {/* Pickup Address */}
+                                        <div className="bg-blue-50 rounded-lg p-3 border border-blue-100">
+                                            <p className="text-[9px] text-blue-600 uppercase font-bold tracking-wider mb-1">Pickup Location</p>
+                                            <p className="text-[9px] text-blue-800 font-medium leading-tight">{crop.pickup_address || 'Market Yard, Pollachi - 642001'}</p>
                                         </div>
 
                                         <div className="flex flex-col gap-2 pt-2 mt-auto">

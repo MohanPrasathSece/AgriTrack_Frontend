@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import { Camera, MapPin, Phone, Mail, Wheat, ShieldCheck, Edit3, Save, X, Loader2, Calendar, Award, Edit, ArrowLeft, User, Sparkles } from "lucide-react";
+import React, { useState, useEffect, useCallback } from "react";
+import { MapPin, Phone, Mail, ShieldCheck, Loader2, Calendar, Award, Edit, ArrowLeft, User, Sparkles } from "lucide-react";
 import heroFarm from "../../assets/hero-farm.jpg";
 import { useAuth } from "../../contexts/AuthContext";
 import { farmerApi } from "../../utils/api";
@@ -22,19 +22,6 @@ export default function Profile() {
     const [saving, setSaving] = useState(false);
 
     
-    useEffect(() => {
-        const abortController = new AbortController();
-        
-        if (user?.email) {
-            fetchProfile();
-        }
-
-        // Cleanup function to abort pending requests
-        return () => {
-            abortController.abort();
-        };
-    }, [user?.email, fetchProfile]);
-
     const fetchProfile = useCallback(async () => {
         try {
             setLoading(true);
@@ -52,10 +39,46 @@ export default function Profile() {
             }
         } catch (error) {
             console.error("Error fetching profile:", error);
+            // Set dummy data for demonstration
+            const dummyProfile = {
+                name: 'Mohan Kumar',
+                phone: '+91 98765 43210',
+                address: {
+                    full_address: 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001',
+                    city: 'Pollachi',
+                    state: 'Tamil Nadu',
+                    postal_code: '642001'
+                },
+                farmer_details: {
+                    experience: '12',
+                    specialties: ['Organic Rice', 'Premium Wheat', 'Turmeric', 'Coconut']
+                }
+            };
+            setProfile(dummyProfile);
+            setEditForm({
+                name: dummyProfile.name,
+                phone: dummyProfile.phone,
+                address_text: dummyProfile.address.full_address,
+                farming_experience: dummyProfile.farmer_details.experience,
+                specialties: dummyProfile.farmer_details.specialties.join(', ')
+            });
         } finally {
             setLoading(false);
         }
     }, [user.email]);
+
+    useEffect(() => {
+        const abortController = new AbortController();
+        
+        if (user?.email) {
+            fetchProfile();
+        }
+
+        // Cleanup function to abort pending requests
+        return () => {
+            abortController.abort();
+        };
+    }, [user?.email, fetchProfile]);
 
     const handleSave = async (e) => {
         e.preventDefault();
@@ -232,7 +255,10 @@ export default function Profile() {
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Location</p>
                                                 <p className="text-sm text-slate-900 font-medium mt-1 leading-relaxed">
-                                                    {formatLocation(profile?.address) || 'Primary Hub'}
+                                                    {profile?.address?.full_address || 'Farm No. 42, Pollachi Road, Coimbatore District, Tamil Nadu - 642001'}
+                                                </p>
+                                                <p className="text-xs text-slate-500 mt-1">
+                                                    📍 {profile?.address?.city || 'Pollachi'}, {profile?.address?.state || 'Tamil Nadu'}
                                                 </p>
                                             </div>
                                         </div>

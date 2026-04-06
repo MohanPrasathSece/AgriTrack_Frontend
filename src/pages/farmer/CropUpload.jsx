@@ -39,7 +39,9 @@ const CropUpload = () => {
     quantity: '',
     unit: 'kg',
     pricePerUnit: '',
-    category: 'grains'
+    category: 'grains',
+    location: '',
+    pickupAddress: ''
   });
 
   useEffect(() => {
@@ -61,7 +63,9 @@ const CropUpload = () => {
       quantity: editCrop?.quantity ?? '',
       unit: editCrop?.unit || 'kg',
       pricePerUnit: editCrop?.price_per_unit ?? editCrop?.pricePerUnit ?? '',
-      category: editCrop?.category || 'grains'
+      category: editCrop?.category || 'grains',
+      location: editCrop?.location || '',
+      pickupAddress: editCrop?.pickup_address || ''
     });
   }, [isEditMode, editCrop]);
 
@@ -503,6 +507,73 @@ const CropUpload = () => {
                   min="0"
                   className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-base font-bold text-emerald-700 focus:bg-white focus:outline-none focus:border-emerald-500 transition-all"
                 />
+              </div>
+            </div>
+          </section>
+
+          {/* ── Step 3: Location ── */}
+          <section className="space-y-5">
+            <div className="flex items-center gap-2">
+              <div className="w-5 h-5 rounded-full bg-slate-900 text-white flex items-center justify-center text-[10px] font-bold">3</div>
+              <h2 className="text-xs font-bold text-slate-700 uppercase tracking-widest">Location & Pickup</h2>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+              {/* Farm Location */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Farm Location *</label>
+                <input
+                  type="text"
+                  name="location"
+                  required
+                  value={formData.location}
+                  onChange={handleChange}
+                  placeholder="e.g. Pollachi, Coimbatore"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:bg-white focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all"
+                />
+                <p className="text-xs text-slate-500">General area where your farm is located</p>
+              </div>
+
+              {/* Pickup Address */}
+              <div className="space-y-1.5">
+                <label className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Pickup Address *</label>
+                <input
+                  type="text"
+                  name="pickupAddress"
+                  required
+                  value={formData.pickupAddress}
+                  onChange={handleChange}
+                  placeholder="e.g. Market Yard, Pollachi - 642001"
+                  className="w-full px-4 py-3 bg-slate-50 border border-slate-200 rounded-lg text-sm text-slate-800 focus:bg-white focus:outline-none focus:border-emerald-500 focus:ring-4 focus:ring-emerald-500/5 transition-all"
+                />
+                <p className="text-xs text-slate-500">Exact address where buyers can pick up the crop</p>
+              </div>
+            </div>
+
+            {/* Location Suggestions */}
+            <div className="bg-blue-50 border border-blue-100 rounded-lg p-4">
+              <p className="text-xs font-bold text-blue-800 mb-2">📍 Popular Locations in Coimbatore District:</p>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {[
+                  'Pollachi Market Yard',
+                  'Anamalai Farms',
+                  'Gandhipuram Collection Point',
+                  'RS Puram Market',
+                  'Sundarapuram Farm Gate',
+                  'Vadavalli Agricultural Hub'
+                ].map((location) => (
+                  <button
+                    key={location}
+                    type="button"
+                    onClick={() => setFormData(prev => ({
+                      ...prev,
+                      pickupAddress: `${location} - ${location.includes('Pollachi') ? '642001' : location.includes('Gandhipuram') ? '641018' : location.includes('RS Puram') ? '641002' : '641015'}`
+                    }))}
+                    className="text-xs text-blue-700 hover:text-blue-900 hover:bg-blue-100 px-2 py-1 rounded transition-colors text-left"
+                  >
+                    {location}
+                  </button>
+                ))}
               </div>
             </div>
           </section>

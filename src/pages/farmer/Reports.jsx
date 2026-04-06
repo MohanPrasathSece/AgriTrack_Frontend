@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import { Download, FileText, Star, TrendingUp, Loader2, Sparkles, ChevronRight } from "lucide-react";
 import { useAuth } from "../../contexts/AuthContext";
 import { farmerApi } from "../../utils/api";
@@ -32,11 +32,11 @@ export default function Reports() {
         }
     };
 
-    useEffect(() => {
-        if (user?.email) {
-            fetchReports();
-        }
-    }, [user?.email, fetchReports]);
+    const handleViewDetails = (report) => {
+        console.log('Viewing report details:', report);
+        setSelectedReport(report);
+        setShowDetails(true);
+    };
 
     const fetchReports = useCallback(async () => {
         try {
@@ -73,6 +73,12 @@ export default function Reports() {
             setLoading(false);
         }
     }, [user.email]);
+
+    useEffect(() => {
+        if (user?.email) {
+            fetchReports();
+        }
+    }, [user?.email, fetchReports]);
 
     if (loading) {
         return (

@@ -29,7 +29,7 @@ export default function AggregatorProfile() {
                 phone: user.phone || '9025421149',
                 enterpriseName: user.aggregator_details?.enterpriseName || 'Mohan Agri Logistics - Coimbatore',
                 license: user.aggregator_details?.license || 'AGR-CBE-2026-X',
-                fullAddress: user.address?.fullAddress || '123, Avinashi Road, Coimbatore, Tamil Nadu - 641018'
+                fullAddress: user.address?.fullAddress || 'Warehouse Complex, Pollachi Main Road, Near Anamalai Hills, Coimbatore District, Tamil Nadu - 642001'
             });
         }
     }, [user]);
