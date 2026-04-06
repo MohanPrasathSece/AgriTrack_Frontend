@@ -20,7 +20,6 @@
     }
   ],
   "env": {
-    "REACT_APP_API_URL": "@api_url",
-    "REACT_APP_MONGODB_URI": "mongodb+srv://mohanprasath563_db_user:0110@cluster0.zdc8nlj.mongodb.net/?appName=Cluster0"
+    "REACT_APP_API_URL": "@api_url"
   }
 }
