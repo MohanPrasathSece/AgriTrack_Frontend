@@ -28,11 +28,16 @@ export default function Profile() {
             const response = await farmerApi.getProfile(user.email);
             if (response.data.success) {
                 const p = response.data.profile;
-                setProfile(p);
+                // Ensure address is a string, not an object
+                const profileData = {
+                    ...p,
+                    address: typeof p?.address === 'object' ? p?.address?.full_address || p?.address || 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001' : p?.address
+                };
+                setProfile(profileData);
                 setEditForm({
                     name: p.name || '',
                     phone: p.phone || '',
-                    address_text: p.address?.full_address || p.address || '',
+                    address_text: typeof p?.address === 'object' ? p?.address?.full_address || p?.address || '' : p?.address || '',
                     farming_experience: p.farmer_details?.experience || '10',
                     specialties: p.farmer_details?.specialties?.join(', ') || 'Organic Rice, Wheat'
                 });
@@ -90,7 +95,12 @@ export default function Profile() {
             };
             const response = await farmerApi.updateProfile(user.email, updateData);
             if (response.data.success) {
-                setProfile(response.data.profile);
+                // Ensure profile data is properly formatted for display
+                const updatedProfile = {
+                    ...response.data.profile,
+                    address: response.data.profile?.address?.full_address || response.data.profile?.address || editForm.address_text
+                };
+                setProfile(updatedProfile);
                 setIsEditing(false);
             }
         } catch (error) {
