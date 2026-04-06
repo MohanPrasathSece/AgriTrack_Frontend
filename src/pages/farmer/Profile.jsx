@@ -43,12 +43,7 @@ export default function Profile() {
             const dummyProfile = {
                 name: 'Mohan Kumar',
                 phone: '+91 98765 43210',
-                address: {
-                    full_address: 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001',
-                    city: 'Pollachi',
-                    state: 'Tamil Nadu',
-                    postal_code: '642001'
-                },
+                address: 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001',
                 farmer_details: {
                     experience: '12',
                     specialties: ['Organic Rice', 'Premium Wheat', 'Turmeric', 'Coconut']
@@ -58,7 +53,7 @@ export default function Profile() {
             setEditForm({
                 name: dummyProfile.name,
                 phone: dummyProfile.phone,
-                address_text: dummyProfile.address.full_address,
+                address_text: dummyProfile.address,
                 farming_experience: dummyProfile.farmer_details.experience,
                 specialties: dummyProfile.farmer_details.specialties.join(', ')
             });
@@ -255,10 +250,10 @@ export default function Profile() {
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Location</p>
                                                 <p className="text-sm text-slate-900 font-medium mt-1 leading-relaxed">
-                                                    {profile?.address?.full_address || 'Farm No. 42, Pollachi Road, Coimbatore District, Tamil Nadu - 642001'}
+                                                    {profile?.address || 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001'}
                                                 </p>
                                                 <p className="text-xs text-slate-500 mt-1">
-                                                    📍 {profile?.address?.city || 'Pollachi'}, {profile?.address?.state || 'Tamil Nadu'}
+                                                    📍 Pollachi, Tamil Nadu
                                                 </p>
                                             </div>
                                         </div>

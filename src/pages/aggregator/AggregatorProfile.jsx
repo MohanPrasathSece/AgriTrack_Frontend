@@ -161,7 +161,7 @@ export default function AggregatorProfile() {
                                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 pt-4 border-t border-slate-50">
                                     {[
                                         { icon: QrCode, label: "Business License", value: user?.aggregator_details?.license || "AGR-CBE-2026-X" },
-                                        { icon: MapPin, label: "Business Location", value: formatLocation(user?.address) || "Coimbatore, Tamil Nadu" },
+                                        { icon: MapPin, label: "Business Location", value: typeof user?.address === 'object' ? (user?.address?.fullAddress || user?.address?.full_address || "Warehouse Complex, Pollachi Main Road, Near Anamalai Hills, Coimbatore District, Tamil Nadu - 642001") : (user?.address || "Warehouse Complex, Pollachi Main Road, Near Anamalai Hills, Coimbatore District, Tamil Nadu - 642001") },
                                         { icon: Phone, label: "Phone Number", value: user?.phone || "9025421149" },
                                         { icon: Mail, label: "Email Address", value: user?.email || "mohan@cropconnect.com" },
                                     ].map((item, i) => (
