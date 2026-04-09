@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { ShieldCheck, Calendar, MapPin, Printer, ArrowLeft, QrCode, Package, User, Leaf, Truck } from 'lucide-react';
 import { orderApi } from '../utils/api';
 import QRCode from 'qrcode';
+import { formatLocation } from '../utils/format';
 
 const DUMMY_ORDERS = {
     "ORD-9283-X1": {
@@ -53,10 +54,10 @@ const DUMMY_ORDERS = {
 };
 
 const CROP_POOL = [
-    { name: "Organic Wheat", quality: { grade: "Grade A+" }, unit: "KG", farmer: "Rajesh Patel", location: "Pollachi, Coimbatore", aggregator: "Kovai Agri Collect", buyer: { name: "Local Mandi" }, harvest_date: "8 February 2026", dispatch_date: "14 February 2026", payment: "₹6,400" },
-    { name: "Red Onions", quality: { grade: "Premium A" }, unit: "KG", farmer: "Anita Desai", location: "Thondamuthur, Coimbatore", aggregator: "Deccan AgriHub", buyer: { name: "Reliance Retail" }, harvest_date: "18 February 2026", dispatch_date: "22 February 2026", payment: "₹8,100" },
+    { name: "Organic Wheat", quality: { grade: "Grade A+" }, unit: "KG", farmer: "Rajesh Patel", location: "Kinathukadavu, Coimbatore", aggregator: "Kovai Agri Collect", buyer: { name: "Local Mandi" }, harvest_date: "8 February 2026", dispatch_date: "14 February 2026", payment: "₹6,400" },
+    { name: "Red Onions", quality: { grade: "Premium A" }, unit: "KG", farmer: "Anita Desai", location: "Kinathukadavu, Coimbatore", aggregator: "Deccan AgriHub", buyer: { name: "Reliance Retail" }, harvest_date: "18 February 2026", dispatch_date: "22 February 2026", payment: "₹8,100" },
     { name: "Sweet Corn", quality: { grade: "Grade B+" }, unit: "KG", farmer: "Mohan Yadav", location: "Kinathukadavu, Coimbatore", aggregator: "Central Agrilink", buyer: { name: "Metro Cash & Carry" }, harvest_date: "1 March 2026", dispatch_date: "5 March 2026", payment: "₹5,900" },
-    { name: "Alphonso Mangoes", quality: { grade: "GI Certified A+" }, unit: "KG", farmer: "Sudhir Gaonkar", location: "Mettupalayam, Coimbatore", aggregator: "Kongu Exports", buyer: { name: "Star Bazaar" }, harvest_date: "10 March 2026", dispatch_date: "14 March 2026", payment: "₹9,800" },
+    { name: "Alphonso Mangoes", quality: { grade: "GI Certified A+" }, unit: "KG", farmer: "Sudhir Gaonkar", location: "Kinathukadavu, Coimbatore", aggregator: "Kongu Exports", buyer: { name: "Star Bazaar" }, harvest_date: "10 March 2026", dispatch_date: "14 March 2026", payment: "₹9,800" },
 ];
 
 const generateCropDummy = (cropId) => {
@@ -103,7 +104,13 @@ const OrderQRLabel = () => {
             const dummy = id.startsWith('crop-') ? generateCropDummy(id) : DUMMY_ORDERS[id];
             if (dummy) {
                 setOrderData(dummy);
-                const qrContent = JSON.stringify({ id: dummy.order_id, crop: dummy.crop.name, qty: `${dummy.quantity} ${dummy.unit}`, quality: dummy.crop?.quality?.grade || 'A' });
+                const qrContent = JSON.stringify({ 
+                    id: dummy.order_id, 
+                    crop: dummy.crop.name, 
+                    qty: `${dummy.quantity} ${dummy.unit}`, 
+                    quality: dummy.crop?.quality?.grade || 'A',
+                    farmer: dummy.farmer 
+                });
                 setQrCodeUrl(await QRCode.toDataURL(qrContent));
             }
             setLoading(false);
@@ -232,7 +239,7 @@ const OrderQRLabel = () => {
                             {farm_location && (
                                 <div className="flex items-center justify-between bg-slate-50 rounded-xl px-4 py-3 border border-slate-100">
                                     <div className="flex items-center gap-2 text-xs text-slate-400"><Leaf className="w-3.5 h-3.5" /> Farm Location</div>
-                                    <span className="text-sm font-bold text-slate-800">{farm_location}</span>
+                                    <span className="text-sm font-bold text-slate-800">{formatLocation(farm_location)}</span>
                                 </div>
                             )}
                         </div>

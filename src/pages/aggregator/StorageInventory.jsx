@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { StatusBadge } from "../../components/farmer/StatusBadge";
 import { Plus, Thermometer, Droplets, MapPin, Search, Filter, Warehouse, Package, ArrowUpRight, ChevronRight, X, ArrowLeft, Activity, ShieldCheck, Sparkles, Loader2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import { formatLocation } from "../../utils/format";
 
 const inventoryData = [
     { id: 1, crop: "Basmati Rice", quantity: "1,200 kg", grade: "Grade A", location: "Warehouse A", status: "available", icon: Warehouse },
@@ -130,7 +131,7 @@ export default function StorageInventory() {
                                     <td className="p-8">
                                         <div className="flex items-center gap-2 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                                             <MapPin className="w-3.5 h-3.5 text-emerald-500" />
-                                            {item.location}
+                                            {formatLocation(item.location)}
                                         </div>
                                     </td>
                                     <td className="p-8"><StatusBadge status={item.status} /></td>

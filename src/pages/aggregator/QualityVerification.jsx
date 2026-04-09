@@ -8,6 +8,7 @@ import {
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { mlApi } from "../../utils/api";
+import { formatLocation } from "../../utils/format";
 
 const batchesData = [
     { id: "BTC-0524", crop: "Premium Basmati Rice", farmer: "Ramesh Kumar", aiGrade: "Grade A", status: "pending", location: "Warehouse A-12" },
@@ -548,7 +549,7 @@ export default function QualityVerification() {
                                             <div className="flex flex-wrap items-center gap-4 text-[11px] font-bold text-slate-400 uppercase tracking-widest">
                                                 <span className="flex items-center gap-2"><Beaker className="w-3.5 h-3.5" /> Producer: {batch.farmer}</span>
                                                 <span className="w-1 h-1 rounded-full bg-slate-200" />
-                                                <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Storage: {batch.location}</span>
+                                                <span className="flex items-center gap-2"><MapPin className="w-3.5 h-3.5" /> Storage: {formatLocation(batch.location)}</span>
                                             </div>
                                         </div>
 

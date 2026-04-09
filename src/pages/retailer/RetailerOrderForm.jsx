@@ -21,9 +21,13 @@ export default function RetailerOrderForm() {
     const [deliveryAddress, setDeliveryAddress] = useState(() => {
         if (!user?.address) return "";
         if (typeof user.address === 'string') return user.address;
-        const { street, village, district, city, state, pincode, fullAddress } = user.address;
-        if (fullAddress) return fullAddress;
-        return [street, village, district, city, state, pincode].filter(Boolean).join(', ');
+        // Handle address object safely
+        if (typeof user.address === 'object' && user.address !== null) {
+            const { street, village, district, city, state, pincode, fullAddress } = user.address;
+            if (fullAddress) return fullAddress;
+            return [street, village, district, city, state, pincode].filter(Boolean).join(', ');
+        }
+        return "";
     });
     const [paymentMethod, setPaymentMethod] = useState("escrow");
     const [notes, setNotes] = useState("");

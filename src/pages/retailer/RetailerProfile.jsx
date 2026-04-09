@@ -134,7 +134,7 @@ export default function RetailerProfile() {
                         {[
                             { label: "LEGAL REGISTRATION NAME", value: user?.name?.toUpperCase() || "RETAILER CORP", icon: AlertCircle },
                             { label: "MERCHANT CLASSIFICATION", value: "SUPERMARKET / DISTRIBUTION", icon: Camera },
-                            { label: "PRIMARY LOGISTICS NODE", value: typeof user?.address === 'object' ? (user?.address?.fullAddress || user?.address?.village + ', ' + user?.address?.district + ', ' + user?.address?.state) : (user?.address || 'Regional Logistics Node'), icon: MapPin },
+                            { label: "PRIMARY LOGISTICS NODE", value: formatLocation(user?.address), icon: MapPin },
                             { label: "SECURE CONTACT TERMINAL", value: user?.phone || "+91 (555) 001-9872", icon: Phone },
                             { label: "AUTHORIZED LEDGER EMAIL", value: user?.email, icon: Mail, full: true }
                         ].map((field, i) => (
@@ -184,9 +184,7 @@ export default function RetailerProfile() {
                         </div>
                         <div className="space-y-1">
                             <h4 className="text-xl font-black tracking-tight uppercase">{user?.wallet_address ? "Ledger Verified Terminal" : "Unverified Identity Node"}</h4>
-                            <p className="text-xl font-bold text-slate-400 uppercase tracking-tight">
-                                {typeof user?.address === 'object' ? (user?.address?.fullAddress || user?.address?.village + ', ' + user?.address?.district + ', ' + user?.address?.state) : (user?.address || 'Regional Node')}
-                            </p>
+                            <p className="text-sm font-bold text-slate-400 truncate">{formatLocation(user?.address)}</p>
                             <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-relaxed">
                                 {user?.wallet_address
                                     ? `Terminal ID ${user.wallet_address} is cryptographically linked to the AgriTrack ledger.`

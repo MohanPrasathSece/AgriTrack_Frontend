@@ -231,7 +231,7 @@ export default function PublicQRScanner() {
                                         <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Location</p>
                                         <div className="flex items-center gap-3">
                                             <MapPin className="w-4 h-4 text-emerald-500" />
-                                            <p className="text-xs md:text-sm font-bold text-slate-600 uppercase tracking-tight">{scannedData.farmer.address}</p>
+                                            <p className="text-xs md:text-sm font-bold text-slate-600 uppercase tracking-tight">{typeof scannedData.farmer.address === 'object' ? (scannedData.farmer.address?.fullAddress || scannedData.farmer.address?.village + ', ' + scannedData.farmer.address?.district + ', ' + scannedData.farmer.address?.state) : (scannedData.farmer.address || 'Unknown Location')}</p>
                                         </div>
                                     </div>
                                 </div>

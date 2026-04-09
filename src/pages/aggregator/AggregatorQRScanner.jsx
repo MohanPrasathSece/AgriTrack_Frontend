@@ -83,6 +83,48 @@ export default function AggregatorQRScanner() {
         setLoading(true);
         setError(null);
         try {
+            // First, check if the code is a JSON string (from our dummy frontend generation)
+            try {
+                const parsed = JSON.parse(code || manualCode);
+                if (parsed && (parsed.id || parsed.orderId)) {
+                    // It's a valid JSON QR from our system
+                    const mockData = {
+                        farmer: {
+                            name: parsed.farmer || "Kinathukadavu Producer",
+                            address: {
+                                village: "Kinathukadavu",
+                                district: "Coimbatore",
+                                state: "Tamil Nadu",
+                                pincode: "642109",
+                                fullAddress: "Kinathukadavu North, Coimbatore, Tamil Nadu"
+                            }
+                        },
+                        crop: {
+                            name: parsed.crop || "Premium Harvest",
+                            variety: "Heirloom Organic",
+                            quantity: parseInt(parsed.qty) || 500,
+                            unit: parsed.qty?.split(' ')[1] || "KG",
+                            traceabilityId: parsed.id || parsed.orderId || "TR-MATCHED-882",
+                            harvestedDate: new Date().toISOString().split('T')[0],
+                            quality: parsed.quality || "A++ (Premium)",
+                            shippedDate: "2026-02-10",
+                            sellDate: "2026-03-15",
+                            location: "Kinathukadavu, Coimbatore"
+                        }
+                    };
+                    setScannedData(mockData);
+                    setIsScanning(false);
+                    if (stream) {
+                        stream.getTracks().forEach(track => track.stop());
+                        setStream(null);
+                    }
+                    setLoading(false);
+                    return;
+                }
+            } catch (e) {
+                // Not a JSON string, proceed with API call
+            }
+
             let location = { latitude: 0, longitude: 0 };
             try {
                 const pos = await new Promise((res, rej) => {
@@ -302,7 +344,7 @@ export default function AggregatorQRScanner() {
                                     <p className="text-[9px] font-bold text-slate-400 uppercase tracking-widest">Farm Location</p>
                                     <div className="flex items-center gap-3">
                                         <MapPin className="w-4 h-4 text-emerald-500" />
-                                        <p className="text-sm font-bold text-slate-600 truncate">{typeof scannedData.farmer.address === 'object' ? (scannedData.farmer.address?.fullAddress || scannedData.farmer.address?.village + ', ' + scannedData.farmer.address?.district + ', ' + scannedData.farmer.address?.state) : (scannedData.farmer.address || 'Unknown Location')}</p>
+                                        <p className="text-sm font-bold text-slate-600 truncate">{formatLocation(scannedData.farmer.address)}</p>
                                     </div>
                                 </div>
                                 <div className="flex gap-12">

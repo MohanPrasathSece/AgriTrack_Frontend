@@ -23,6 +23,7 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../contexts/AuthContext";
 import { aggregatorApi } from "../../utils/api";
 import { t } from "../../utils/translation";
+import { formatLocation } from "../../utils/format";
 import ContactSupport from "../../components/ContactSupport";
 import GoogleTranslate from "../../components/GoogleTranslate";
 // Import the same crop images as farmer
@@ -439,7 +440,7 @@ export default function AggregatorDashboard() {
                   <div className="flex items-center gap-4 mb-4 text-sm text-slate-600">
                     <div className="flex items-center gap-1">
                       <MapPin className="w-4 h-4" />
-                      <span>{crop.location}</span>
+                      <span>{formatLocation(crop.location)}</span>
                     </div>
                     <div className="flex items-center gap-1">
                       <Star className="w-4 h-4 text-slate-400 fill-current" />

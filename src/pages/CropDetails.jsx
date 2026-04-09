@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { supabase } from '../utils/supabaseClient';
+import { formatLocation } from '../utils/format';
 import {
   ArrowLeft,
   MapPin,
@@ -248,7 +249,7 @@ const CropDetails = () => {
                   <h4 className="font-bold text-slate-900 text-lg tracking-tight uppercase flex items-center gap-2">
                     {crop.farmer.name} <BadgeCheck className="h-4 w-4 text-emerald-500" />
                   </h4>
-                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">{crop.farmer.location}</p>
+                  <p className="text-slate-400 text-[10px] font-bold uppercase tracking-widest">{formatLocation(crop.farmer.location)}</p>
                 </div>
               </div>
               <div className="space-y-3">

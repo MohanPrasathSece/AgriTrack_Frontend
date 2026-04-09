@@ -17,6 +17,7 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { formatLocation } from '../utils/format';
 
 const TracePage = () => {
   const { traceId } = useParams();
@@ -331,7 +332,7 @@ const TracePage = () => {
                     <p className="text-gray-600 mb-1">{stage.description}</p>
                     <p className="text-sm text-gray-500">
                       <MapPin className="w-3 h-3 inline mr-1" />
-                      {stage.location}
+                      {formatLocation(stage.location)}
                     </p>
                   </div>
                 </div>

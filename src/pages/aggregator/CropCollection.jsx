@@ -164,7 +164,7 @@ const CropCollection = () => {
                   <MapPin className="w-4 h-4 text-blue-500" /> Location of Produce
                 </p>
                 <p className="text-[15px] font-bold text-slate-600 leading-relaxed mt-1">
-                  {typeof cropData?.farmer?.address === 'object' ? (cropData?.farmer?.address?.fullAddress || cropData?.farmer?.address?.village + ', ' + cropData?.farmer?.address?.district + ', ' + cropData?.farmer?.address?.state) : (cropData?.farmer?.address || 'Farmer Location')}
+                  {formatLocation(cropData?.farmer?.address)}
                 </p>
               </div>
             </div>

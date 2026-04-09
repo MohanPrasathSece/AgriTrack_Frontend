@@ -31,13 +31,13 @@ export default function Profile() {
                 // Ensure address is a string, not an object
                 const profileData = {
                     ...p,
-                    address: typeof p?.address === 'object' ? p?.address?.full_address || p?.address || 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001' : p?.address
+                    address: formatLocation(p?.address)
                 };
                 setProfile(profileData);
                 setEditForm({
                     name: p.name || '',
                     phone: p.phone || '',
-                    address_text: typeof p?.address === 'object' ? p?.address?.full_address || p?.address || '' : p?.address || '',
+                    address_text: formatLocation(p?.address),
                     farming_experience: p.farmer_details?.experience || '10',
                     specialties: p.farmer_details?.specialties?.join(', ') || 'Organic Rice, Wheat'
                 });
@@ -98,7 +98,7 @@ export default function Profile() {
                 // Ensure profile data is properly formatted for display
                 const updatedProfile = {
                     ...response.data.profile,
-                    address: response.data.profile?.address?.full_address || response.data.profile?.address || editForm.address_text
+                    address: formatLocation(response.data.profile?.address)
                 };
                 setProfile(updatedProfile);
                 setIsEditing(false);
@@ -260,7 +260,7 @@ export default function Profile() {
                                             <div className="min-w-0">
                                                 <p className="text-[10px] text-slate-400 uppercase tracking-widest font-bold">Location</p>
                                                 <p className="text-sm text-slate-900 font-medium mt-1 leading-relaxed">
-                                                    {profile?.address || 'Farm No. 42, Pollachi Road, Near Anamalai Tiger Reserve, Coimbatore District, Tamil Nadu - 642001'}
+                                                    {formatLocation(profile?.address)}
                                                 </p>
                                                 <p className="text-xs text-slate-500 mt-1">
                                                     📍 Pollachi, Tamil Nadu

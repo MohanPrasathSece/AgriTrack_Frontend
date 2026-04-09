@@ -401,7 +401,7 @@ export default function AggregatorCollections() {
                                     <User className="w-4 h-4" />
                                     <span>{crop.farmer}</span>
                                     <MapPin className="w-4 h-4 ml-auto" />
-                                    <span>{crop.location}</span>
+                                    <span>{formatLocation(crop.location)}</span>
                                 </div>
 
                                 {/* Buy Button */}

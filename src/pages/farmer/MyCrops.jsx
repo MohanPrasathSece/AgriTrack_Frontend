@@ -15,13 +15,13 @@ import wheatImg from "../../components/farmer/crops/wheat.jpg";
 const statusFilters = ["All", "Listed", "Sold"];
 
 const DUMMY_CROPS = [
-  { _id: '1', id: '1', name: 'Premium Basmati Rice', price_per_unit: 85, quantity: 1500, unit: 'KG', status: 'Listed', image: { url: riceImg }, location: 'Pollachi Market, Coimbatore', pickup_address: 'Market Yard, Pollachi - 642001' },
-  { _id: '2', id: '2', name: 'Organic Wheat', price_per_unit: 42, quantity: 2000, unit: 'KG', status: 'Listed', image: { url: wheatImg }, location: 'Anamalai Farms, Pollachi', pickup_address: 'Anamalai Road, Pollachi - 642001' },
-  { _id: '3', id: '3', name: 'Fresh Brinjal', price_per_unit: 25, quantity: 400, unit: 'KG', status: 'Listed', image: { url: brinjalImg }, location: 'Gandhipuram, Coimbatore', pickup_address: 'Gandhipuram Market, Coimbatore - 641018' },
-  { _id: '4', id: '4', name: 'Farm Carrots', price_per_unit: 34, quantity: 600, unit: 'KG', status: 'Sold', image: { url: carrotImg }, location: 'Sundarapuram, Coimbatore', pickup_address: 'Sundarapuram Farm Gate, Coimbatore - 641015' },
-  { _id: '5', id: '5', name: 'Green Chilly', price_per_unit: 60, quantity: 150, unit: 'KG', status: 'Listed', image: { url: greenChillyImg }, location: 'Udumalpet Road, Pollachi', pickup_address: 'Udumalpet Road, Pollachi - 642103' },
-  { _id: '6', id: '6', name: 'Potato (Kufri)', price_per_unit: 20, quantity: 3000, unit: 'KG', status: 'Listed', image: { url: potatoImg }, location: 'RS Puram, Coimbatore', pickup_address: 'RS Puram Collection Point, Coimbatore - 641002' },
-  { _id: '7', id: '7', name: 'Red Chilly (Guntur)', price_per_unit: 140, quantity: 500, unit: 'KG', status: 'Sold', image: { url: redChillyImg }, location: 'Vadavalli, Coimbatore', pickup_address: 'Vadavalli Farm, Coimbatore - 641041' }
+  { _id: '1', id: '1', name: 'Premium Basmati Rice', price_per_unit: 85, quantity: 1500, unit: 'KG', status: 'Listed', image: { url: riceImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu Market Yard, Coimbatore - 642109' },
+  { _id: '2', id: '2', name: 'Organic Wheat', price_per_unit: 42, quantity: 2000, unit: 'KG', status: 'Listed', image: { url: wheatImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu Farm Gate, Coimbatore - 642109' },
+  { _id: '3', id: '3', name: 'Fresh Brinjal', price_per_unit: 25, quantity: 400, unit: 'KG', status: 'Listed', image: { url: brinjalImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu Local Mandi, Coimbatore - 642109' },
+  { _id: '4', id: '4', name: 'Farm Carrots', price_per_unit: 34, quantity: 600, unit: 'KG', status: 'Sold', image: { url: carrotImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu Collection Center, Coimbatore - 642109' },
+  { _id: '5', id: '5', name: 'Green Chilly', price_per_unit: 60, quantity: 150, unit: 'KG', status: 'Listed', image: { url: greenChillyImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu North Mandi, Coimbatore - 642109' },
+  { _id: '6', id: '6', name: 'Potato (Kufri)', price_per_unit: 20, quantity: 3000, unit: 'KG', status: 'Listed', image: { url: potatoImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu South Yard, Coimbatore - 642109' },
+  { _id: '7', id: '7', name: 'Red Chilly (Guntur)', price_per_unit: 140, quantity: 500, unit: 'KG', status: 'Sold', image: { url: redChillyImg }, location: 'Kinathukadavu, Coimbatore', pickup_address: 'Kinathukadavu Farm, Coimbatore - 642109' }
 ];
 
 export default function MyCropsFarmer() {
